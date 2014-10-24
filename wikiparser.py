@@ -1,3 +1,14 @@
+"""
+This uses a rather unusual approach to parsing. Could be buggy, but shouldn't
+most of the time. Simpler solutions would be possible, but I wanted to do
+something else with this some time ago. I'll see how this continues.
+
+The commented 'print' statements are just there to be actived quickly for
+debugging when a page couldn't be parsed.
+
+Oh, and documentation will follow... maybe.
+"""
+
 from collections import OrderedDict
 import re
 

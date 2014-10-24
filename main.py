@@ -8,10 +8,8 @@ import requests
 import review
 from wikiparser import Wikitext
 
-# TODO: HTTPS as soon as reactivated!
-API_LOCATION = "http://wiki.teamfortress.com/w/api.php"
-#LANGUAGES = ["ar", "cs", "da", "de", "es", "fi", "fr", "hu", "it", "ja", "ko", "nl", "no", "pl", "pt", "pt-br", "ro", "ru", "sv", "tr", "zh-hans", "zh-hant"]
-LANGUAGES = ["de"]
+API_LOCATION = "https://wiki.teamfortress.com/w/api.php"
+LANGUAGES = ["ar", "cs", "da", "de", "es", "fi", "fr", "hu", "it", "ja", "ko", "nl", "no", "pl", "pt", "pt-br", "ro", "ru", "sv", "tr", "zh-hans", "zh-hant"]
 
 
 def chunker(seq, size):
@@ -81,15 +79,15 @@ def retrieve_pages(session, pagetitles):
     return format_pages(all_pages)
 
 
-def _main(session):
+def main(session):
     for language in LANGUAGES:
         pagetitles = retrieve_pagelist(session, language)
-        #pagetitles = ["ARG/de", "Ammo/de"]
         pages = retrieve_pages(session, pagetitles)
 
         review.simple_review(pages, language)
 
 if __name__ == "__main__":
+    # Note that you're currently just saving the output as files
     session = requests.Session()
     session.headers["User-Agent"] = "Operation Cleanup (TidB)"
-    _main(session)
+    main(session)
