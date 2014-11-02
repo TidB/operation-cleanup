@@ -102,7 +102,7 @@ def wrong_category(page, language):
         return "Wrong category/categories {}".format(
             ", ".join(bad_categories)
         )
-simple_reviews.append([wrong_category, "error"])
+simple_reviews.append([wrong_category, "warning"])
 
 
 def localized_template(page, language):
@@ -136,7 +136,10 @@ def external_links(page, language):
     externallinks = list(page["content"].get_object(type=["external link"]))
     difference = len(externallinks) - len(templates)
     if difference > 0:
-        return "{} possible external link(s) without {{{{tlx|lang icon|en}}}}".format(difference)
+        return "{} out of {} possible external link(s) without {{{{tlx|lang icon|en}}}}".format(
+            difference,
+            len(externallinks)
+        )
 simple_reviews.append([external_links, "warning"])
 
 
