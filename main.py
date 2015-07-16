@@ -1,12 +1,11 @@
 from collections import OrderedDict
 import sys
 import time
-import traceback
 
 import requests
+import mwparserfromhell
 
 import review
-from wikiparser import Wikitext
 
 API_LOCATION = "https://wiki.teamfortress.com/w/api.php"
 LANGUAGES = ["ar", "cs", "da", "de", "es", "fi", "fr", "hu", "it", "ja", "ko", "nl", "no", "pl", "pt", "pt-br", "ro", "ru", "sv", "tr", "zh-hans", "zh-hant"]
@@ -14,29 +13,6 @@ LANGUAGES = ["ar", "cs", "da", "de", "es", "fi", "fr", "hu", "it", "ja", "ko", "
 
 def chunker(seq, size):
     return (seq[pos:pos + size] for pos in range(0, len(seq), size))
-
-
-def format_pages(all_pages):
-    formatted_pages = OrderedDict()
-    for page in sorted(all_pages, key=lambda k: k["title"]):
-        title = page["title"]
-        try:
-            content = Wikitext(page["revisions"][0]["*"]).fromstring()
-        except Exception:
-            print("Error parsing '{0}':\n{1}".format(
-                title,
-                traceback.format_exc()
-            ), file=sys.stderr)
-            continue
-        categories = [category["title"] for category in page["categories"]]
-        displaytitle = page["displaytitle"]
-        formatted_pages[title] = {
-            "content": content,
-            "categories": categories,
-            "displaytitle": displaytitle
-        }
-
-    return formatted_pages
 
 
 def retrieve_pagelist(session, language):
@@ -59,7 +35,7 @@ def retrieve_pagelist(session, language):
 def retrieve_pages(session, pagetitles):
     all_pages = []
     for chunk in chunker(pagetitles, 50):
-        print("chunk:", chunk)
+        print("chunk:", ", ".join(chunk))
         response = session.post(API_LOCATION, data={
             "action": "query",
             "format": "json",
@@ -79,12 +55,34 @@ def retrieve_pages(session, pagetitles):
     return format_pages(all_pages)
 
 
+def format_pages(all_pages):
+    print("Formatting pages...")
+    formatted_pages = OrderedDict()
+    for page in sorted(all_pages, key=lambda k: k["title"]):
+        title = page["title"]
+        content = mwparserfromhell.parse(page["revisions"][0]["*"])
+        categories = [category["title"] for category in page["categories"]]
+        displaytitle = page["displaytitle"]
+        formatted_pages[title] = {
+            "content": content,
+            "categories": categories,
+            "displaytitle": displaytitle
+        }
+    return formatted_pages
+
+
 def main(session):
     for language in LANGUAGES:
+        print("Operations for language", language)
+        print("Retrieving page titles...")
         pagetitles = retrieve_pagelist(session, language)
+        print("Retrieving pages...")
         pages = retrieve_pages(session, pagetitles)
-
+        print("Simple reviewing...")
         review.simple_review(pages, language)
+        print(language, "done.")
+
+    print("All done.")
 
 if __name__ == "__main__":
     # Note that you're currently just saving the output as files
