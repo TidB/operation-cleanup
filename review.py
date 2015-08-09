@@ -25,6 +25,19 @@ EXTERNAL_LINK_EXCEPTIONS = [
 ]
 
 
+def show_progress(current_value, max_value, text, end=False):
+    percentage = int((current_value/max_value)*100)
+    progress = "\r[{0}{1}] {2} | {3}% | {4}{5}".format(
+        "=" * (percentage//5),
+        " " * (20-percentage//5),
+        "{0}/{1}".format(current_value, max_value),
+        percentage,
+        text,
+        "\n" if end else ""
+    )
+    print(progress, end="\r")
+
+
 #-
 # Simple Review
 #-
@@ -37,8 +50,9 @@ def simple_review(pages, language):
             "{{Languages}}\n{{Compact ToC|symnum=yes}}\n__NOTOC__\n== !–9 ==\n",
             "utf-8"
         ))
-        current_char = "Whatever"
-        for title, page in pages.items():
+        current_char = "Whatever this doesn't even matter"
+        for i, (title, page) in enumerate(pages.items()):
+            show_progress(i+1, len(pages), "Reviewing "+title)
             if title[0] in ascii_uppercase and title[0] != current_char:
                 current_char = title[0]
                 f.write(bytes(
@@ -67,6 +81,8 @@ def simple_review(pages, language):
                     "\n",
                     "utf-8"
                 ))
+
+        show_progress(len(pages), len(pages), "Reviewied all.", True)
 
 
 def displaytitle(page, language):
