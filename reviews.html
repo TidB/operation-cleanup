@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <meta charset="UTF-8">
+    <title>Operation Cleanup – TidB</title>
+</head>
+<body>
+    <div id="container">
+        <div class="frame" id="header">
+            <div class="header-left">
+                <span class="main-headline">Operation Cleanup</span><br>
+                <a href="http://tidb.github.io/index.html"><span id="subheading">&lt; back to main page</span></a>
+            </div>
+            <div class="header-right">
+                <a href="https://github.com/TidB/OperationCleanup" target="_blank"><span class="extlinks">GitHub</span></a><br>
+                <a href="https://wiki.teamfortress.com/wiki/User:TidB/Operation_Cleanup" target="_blank"><span class="extlinks">Team Fortress Wiki</span></a><br>
+            </div>
+            <div class="header-right">
+                <a href="https://github.com/TidB/OperationCleanup/tarball/master"><span class="extlinks" id="download">TAR download</span></a><br>
+                <a href="https://github.com/TidB/OperationCleanup/zipball/master"><span class="extlinks" id="download">ZIP download</span></a>
+            </div>
+        </div>
+        <div class="frame" id="content">
+            <div class="nav">
+                <ul class="navbar">
+                    <li class="navbar-item"><a href="http://tidb.github.io/OperationCleanup/index.html" class="navbar-item-label">Home</a></li>
+                    <li class="navbar-item"><a href="http://tidb.github.io/OperationCleanup/reviews.html" class="navbar-item-label">Reviews</a></li>
+                    <li class="navbar-item"><a href="http://tidb.github.io/OperationCleanup/todo.html" class="navbar-item-label">Todo</a></li>
+                </ul>
+            </div>
+            <div id="wrapper">
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">displaytitle</span>
+                    </div>
+                    <div class="text">
+                        <p>Detects pages where the {{DISPLAYTITLE}} template is either used inappropriately or not used where it should be.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">name_parameter</span>
+                    </div>
+                    <div class="text">
+                        <p>Articles about cosmetic items shouldn't use the 'name' parameter as it's added automatically.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">wikipedia_template</span>
+                    </div>
+                    <div class="text">
+                        <p>Detects {{w}} templates that shouldn't be used anymore.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">if_lang</span>
+                    </div>
+                    <div class="text">
+                        <p>The {{if lang}} template should only be used in templates as these are required to be dynamic.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">no_label</span>
+                    </div>
+                    <div class="text">
+                        <p>Links that end with '/lang' should have a label to display a different text.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">wrong_category</span>
+                    </div>
+                    <div class="text">
+                        <p>Detects pages that are in an English category. Some exceptions are present, often enough media files.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">localized_template</span>
+                    </div>
+                    <div class="text">
+                        <p>Detects usages of templates that appear to be localized (ending in '/lang'). Instead, templates should offer translation switching.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">no_loadout_name</span>
+                    </div>
+                    <div class="text">
+                        <p>Often enough, the 'loadout-name' parameter in the {{Item infobox}} template should be used.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">external_links</span>
+                    </div>
+                    <div class="text">
+                        <p>Detects external links that don't have a {{lang icon|en}} attached to them, as almost always external links lead to English pages.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">wrong_wikilinks</span>
+                    </div>
+                    <div class="text">
+                        <p>Detects wikilinks that are leading to a wrong language. Redirects are resolved to eliminate localized redirects.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">wrong_wikipedia_links</span>
+                    </div>
+                    <div class="text">
+                        <p>Detects Wikipedia links that are leading to English language pages.</p>
+                    </div>
+                </div>
+                <div class="block" id="topic">
+                    <div class="topic-headline">
+                        <span class="body-headline" id="topic-headline">missing_wikipedia_pages</span>
+                    </div>
+                    <div class="text">
+                        <p>Detects Wikipedia links to pages that don't exist. Useful since red links aren't displayed in this case.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
